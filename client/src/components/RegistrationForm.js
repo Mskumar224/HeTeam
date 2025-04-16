@@ -149,7 +149,7 @@ function RegistrationForm() {
             </MenuItem>
           ))}
         </TextField>
-        <Button type="submit" variant="contained" fullWidth sx={{ bgcolor: 'accent.main' }}>
+        <Button type="submit" variant="contained" fullWidth sx={{ bgcolor: '#FFD700' }}>
           Register Now
         </Button>
       </form>
