@@ -9,10 +9,10 @@ function Home() {
         {/* Hero Section */}
         <Box sx={{ textAlign: 'center', mb: 8, py: 6, bgcolor: 'primary.main', borderRadius: 2, color: 'background.default' }}>
           <Typography variant="h2" sx={{ fontWeight: 700, mb: 2 }}>
-            He Team: United for Indian Men
+            He Team: Support for Every Indian Man
           </Typography>
           <Typography variant="h6" sx={{ maxWidth: 800, mx: 'auto', mb: 4 }}>
-            From Kashmir to Kanyakumari, He Team is your ally in justice. We offer free legal support, expert advocates, and compassionate counseling for men facing divorce, false dowry cases, child custody battles, or societal pressures. If you're in trouble, we're here to help.
+            No matter where you are in India, He Team stands with you. Get free legal help, expert advocates, and caring counseling for issues like divorce, false dowry cases, or child custody. Facing trouble? Reach out today!
           </Typography>
           <Button
             variant="contained"
@@ -20,7 +20,7 @@ function Home() {
             to="/register"
             sx={{ bgcolor: 'accent.main', color: 'text.primary', mr: 2, px: 4, py: 1.5 }}
           >
-            Register Your Case Now
+            Register Your Case
           </Button>
           <Button
             variant="outlined"
@@ -28,7 +28,7 @@ function Home() {
             to="/counseling"
             sx={{ borderColor: 'background.default', color: 'background.default', px: 4, py: 1.5 }}
           >
-            Seek Counseling
+            Get Counseling
           </Button>
         </Box>
 
