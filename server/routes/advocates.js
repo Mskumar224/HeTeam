@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     res.status(200).json(advocates);
   } catch (error) {
     console.error('Error fetching advocates:', error);
-    res.status(500).json({ message: 'Error fetching advocates. Please try again later.' });
+    res.status(500).json({ message: 'Error fetching advocates. Please try again later.', error: error.message });
   }
 });
 

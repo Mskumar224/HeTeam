@@ -9,8 +9,13 @@ const advocateRoutes = require('./routes/advocates');
 const app = express();
 
 // CORS configuration
+app.use((req, res, next) => {
+  console.log(`Request: ${req.method} ${req.url} from Origin: ${req.headers.origin}`);
+  next();
+});
+
 app.use(cors({
-  origin: ['https://heteam.org', 'http://localhost:3000'],
+  origin: true, // Allow all origins for debugging
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -35,7 +40,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Server error:', err.stack);
-  res.status(500).json({ message: 'Internal server error' });
+  res.status(500).json({ message: 'Internal server error', error: err.message });
 });
 
 // Health check route
