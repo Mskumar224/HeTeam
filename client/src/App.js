@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import RegistrationForm from './components/RegistrationForm';
 import Counseling from './components/Counseling';
+import AdvocateFinder from './components/AdvocateFinder';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/counseling" element={<Counseling />} />
+          <Route path="/advocates" element={<AdvocateFinder />} />
         </Routes>
       </Router>
     </ThemeProvider>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, MenuItem } from '@mui/material';
+import { TextField, Button, Box, Typography, MenuItem, Container, Grid } from '@mui/material';
 import axios from 'axios';
+import BackButton from './BackButton';
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ function RegistrationForm() {
     caseType: '',
     location: '',
     language: '',
+    description: '',
   });
 
   const handleChange = (e) => {
@@ -19,7 +21,8 @@ function RegistrationForm() {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, formData);
-      alert(response.data.message || 'Registration successful! You will be contacted by an advocate soon.');
+      alert(response.data.message || 'Registration successful! Our team will connect you with an advocate soon.');
+      setFormData({ name: '', email: '', caseType: '', location: '', language: '', description: '' });
     } catch (error) {
       console.error('Registration error:', error.response || error);
       alert('Registration failed. Please try again later.');
@@ -38,122 +41,133 @@ function RegistrationForm() {
     'Lucknow - Allahabad High Court',
     'Patna - Patna High Court',
     'Nalgonda - Nalgonda District Court',
+    'Guwahati - Gauhati High Court',
+    'Kochi - Kerala High Court',
     'Other',
   ];
 
   const languages = [
-    'Hindi',
-    'English',
-    'Tamil',
-    'Telugu',
-    'Bengali',
-    'Marathi',
-    'Gujarati',
-    'Kannada',
-    'Malayalam',
-    'Punjabi',
-    'Odia',
-    'Assamese',
-    'Other',
+    'Hindi', 'English', 'Tamil', 'Telugu', 'Bengali', 'Marathi',
+    'Gujarati', 'Kannada', 'Malayalam', 'Punjabi', 'Odia', 'Assamese', 'Other',
   ];
 
   const caseTypes = [
-    'Divorce',
-    'Domestic Violence Defense',
-    'Alimony Disputes',
-    'Child Custody',
-    'Property Disputes',
-    'False Dowry Cases',
-    'Workplace Harassment',
-    'Paternity Disputes',
-    'Inheritance Issues',
-    'Criminal Defense (Men-Specific)',
-    'Other',
+    'False Dowry Allegations', 'Divorce', 'Alimony Disputes', 'Child Custody',
+    'Property Disputes', 'Workplace Harassment', 'Domestic Violence Defense',
+    'Paternity Disputes', 'Inheritance Issues', 'Criminal Defense (Men-Specific)', 'Other',
   ];
 
   return (
-    <Box sx={{ my: 4, p: 2, bgcolor: 'background.paper', border: '1px solid #D1D5DB', maxWidth: 600, mx: 'auto' }}>
-      <Typography variant="h5" gutterBottom>
-        Register Your Case
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          fullWidth
-          label="Full Name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          sx={{ mb: 2 }}
-          required
-          variant="outlined"
-        />
-        <TextField
-          fullWidth
-          label="Email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          sx={{ mb: 2 }}
-          required
-          variant="outlined"
-        />
-        <TextField
-          fullWidth
-          select
-          label="Case Type"
-          name="caseType"
-          value={formData.caseType}
-          onChange={handleChange}
-          sx={{ mb: 2 }}
-          required
-          variant="outlined"
-        >
-          {caseTypes.map((type) => (
-            <MenuItem key={type} value={type}>
-              {type}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          fullWidth
-          select
-          label="Location"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          sx={{ mb: 2 }}
-          required
-          variant="outlined"
-        >
-          {locations.map((loc) => (
-            <MenuItem key={loc} value={loc}>
-              {loc}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          fullWidth
-          select
-          label="Preferred Language"
-          name="language"
-          value={formData.language}
-          onChange={handleChange}
-          sx={{ mb: 2 }}
-          required
-          variant="outlined"
-        >
-          {languages.map((lang) => (
-            <MenuItem key={lang} value={lang}>
-              {lang}
-            </MenuItem>
-          ))}
-        </TextField>
-        <Button type="submit" variant="contained" fullWidth sx={{ bgcolor: '#FFD700' }}>
-          Register Now
-        </Button>
-      </form>
-    </Box>
+    <Container sx={{ py: 6 }}>
+      <BackButton />
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 600 }}>
+          Share Your Struggle
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
+          Facing a legal or personal challenge? Register your case for free, and let He Team connect you with advocates across India who understand your needs.
+        </Typography>
+      </Box>
+      <Box sx={{ maxWidth: 700, mx: 'auto', bgcolor: 'background.paper', p: 4, borderRadius: 2, boxShadow: 3 }}>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Full Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                select
+                label="Case Type"
+                name="caseType"
+                value={formData.caseType}
+                onChange={handleChange}
+                required
+                variant="outlined"
+              >
+                {caseTypes.map((type) => (
+                  <MenuItem key={type} value={type}>{type}</MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                select
+                label="Location"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                required
+                variant="outlined"
+              >
+                {locations.map((loc) => (
+                  <MenuItem key={loc} value={loc}>{loc}</MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                select
+                label="Preferred Language"
+                name="language"
+                value={formData.language}
+                onChange={handleChange}
+                required
+                variant="outlined"
+              >
+                {languages.map((lang) => (
+                  <MenuItem key={lang} value={lang}>{lang}</MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Tell Us Your Story (Optional)"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                multiline
+                rows={4}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                sx={{ bgcolor: 'accent.main', color: 'text.primary', py: 1.5 }}
+              >
+                Submit Your Case
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </Container>
   );
 }
 
