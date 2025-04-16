@@ -11,6 +11,9 @@ const theme = createTheme({
     accent: {
       main: '#D4A017', // Muted Gold
     },
+    teal: {
+      main: '#4DB6AC', // Soft Teal (new for counseling button)
+    },
     background: {
       default: '#F8F9FA', // Off-White
       paper: '#FFFFFF', // Pure White
