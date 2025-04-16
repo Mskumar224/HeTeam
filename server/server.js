@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://your-netlify-app.netlify.app'], // Update with your Netlify URL
+  origin: ['http://localhost:3000', 'https://he-team.netlify.app'], // Replace with your Netlify URL
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
@@ -29,12 +29,12 @@ app.get('/', (req, res) => {
 // Connect to MongoDB with error handling
 mongoose
   .connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+    serverSelectionTimeoutMS: 5000,
   })
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => {
     console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit process on connection failure
+    process.exit(1);
   });
 
 // Start server
