@@ -8,19 +8,24 @@ const advocateRoutes = require('./routes/advocates');
 
 const app = express();
 
-// CORS configuration
+// Logging for debugging
 app.use((req, res, next) => {
-  console.log(`Request: ${req.method} ${req.url} from Origin: ${req.headers.origin}`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} Origin: ${req.headers.origin}`);
   next();
 });
 
-app.use(cors({
-  origin: true, // Allow all origins for debugging
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  optionsSuccessStatus: 200
-}));
+// CORS configuration
+try {
+  app.use(cors({
+    origin: true, // Allow all origins temporarily
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 200
+  }));
+} catch (error) {
+  console.error('CORS setup error:', error);
+}
 
 // Middleware
 app.use(express.json());
@@ -30,7 +35,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/advocates', advocateRoutes);
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI || '', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

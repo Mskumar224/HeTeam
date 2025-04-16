@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     const advocates = await Advocate.find(query);
     res.status(200).json(advocates);
   } catch (error) {
-    console.error('Error fetching advocates:', error);
+    console.error('Advocates error:', error);
     res.status(500).json({ message: 'Error fetching advocates. Please try again later.', error: error.message });
   }
 });
