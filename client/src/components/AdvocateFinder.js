@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Removed unused useEffect
+import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, Container, Grid, Card, CardContent, MenuItem } from '@mui/material';
 import axios from 'axios';
 import BackButton from './BackButton';
@@ -26,8 +26,11 @@ function AdvocateFinder() {
       setError('');
     } catch (error) {
       console.error('Error fetching advocates:', error);
-      setError(error.response?.data?.message || 'Unable to fetch advocates. Please try again.');
-      setAdvocates([]);
+      const errorMessage = error.response?.data?.message || 
+        error.message === 'Network Error' ? 
+        'Unable to connect to the server. Please check your internet or try again later.' : 
+        `Unable to fetch advocates: ${error.response?.status || 'Unknown error'}. Please try again.`;
+      setError(errorMessage);
     }
   };
 
@@ -75,7 +78,7 @@ function AdvocateFinder() {
           Find an Advocate
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
-          Connect with trusted advocates across India who understand your needs.
+          Connect with trusted advocates across India who understand your needs with <span sx={{ color: 'accent.main' }}>He Team</span>.
         </Typography>
       </Box>
       <Box sx={{ maxWidth: 700, mx: 'auto', bgcolor: 'background.paper', p: 4, borderRadius: 2, boxShadow: 3, mb: 4 }}>

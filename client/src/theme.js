@@ -2,18 +2,10 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: '#1A2E59', // Navy Blue
-    },
-    secondary: {
-      main: '#4A5E6D', // Slate Gray
-    },
-    accent: {
-      main: '#D4A017', // Muted Gold
-    },
-    teal: {
-      main: '#4DB6AC', // Soft Teal
-    },
+    primary: { main: '#1A2E59' }, // Navy Blue
+    secondary: { main: '#4A5E6D' }, // Slate Gray
+    accent: { main: '#D4A017' }, // Muted Gold
+    teal: { main: '#4DB6AC' }, // Soft Teal
     background: {
       default: '#F8F9FA', // Off-White
       paper: '#FFFFFF', // Pure White

@@ -9,10 +9,10 @@ function Home() {
         {/* Hero Section */}
         <Box sx={{ textAlign: 'center', mb: 8, py: 6, bgcolor: 'primary.main', borderRadius: 2, color: 'background.default' }}>
           <Typography variant="h2" sx={{ fontWeight: 700, mb: 2 }}>
-            He Team: Justice. Support. Brotherhood.
+            <span sx={{ color: 'accent.main' }}>He Team</span>: Justice. Support. Brotherhood.
           </Typography>
           <Typography variant="h6" sx={{ maxWidth: 800, mx: 'auto', mb: 4 }}>
-            Going through a tough time? Whether it’s divorce, a false dowry case, or custody issues — we’re here to support you. He Team offers free legal help, trusted advocates, and counseling with heart. Reach out. You’re not alone.
+            Going through a tough time? Whether it’s divorce, a false dowry case, or custody issues — we’re here to support you. <span sx={{ color: 'accent.main' }}>He Team</span> offers free legal help, trusted advocates, and counseling with heart. Reach out. You’re not alone.
           </Typography>
           <Button
             variant="contained"
@@ -90,7 +90,7 @@ function Home() {
             Justice in Your Language, Your City
           </Typography>
           <Typography variant="body1" sx={{ maxWidth: 800, mx: 'auto', mb: 4, color: 'text.secondary' }}>
-            Whether you're in bustling Mumbai, serene Shillong, or rural Nalgonda, He Team connects you with advocates who speak your language—Hindi, Tamil, Telugu, Bengali, or more—and understand your local legal system.
+            Whether you're in bustling Mumbai, serene Shillong, or rural Nalgonda, <span sx={{ color: 'accent.main' }}>He Team</span> connects you with advocates who speak your language—Hindi, Tamil, Telugu, Bengali, or more—and understand your local legal system.
           </Typography>
           <Grid container spacing={3}>
             {[
@@ -135,7 +135,7 @@ function Home() {
             {[
               {
                 name: 'Vikram S., Delhi',
-                story: 'He Team helped me fight a false dowry case. Their advocate spoke Hindi and understood my situation, giving me hope when I felt alone.',
+                story: '<span style="color: #D4A017">He Team</span> helped me fight a false dowry case. Their advocate spoke Hindi and understood my situation, giving me hope when I felt alone.',
               },
               {
                 name: 'Arjun R., Chennai',
@@ -143,7 +143,7 @@ function Home() {
               },
               {
                 name: 'Suresh K., Nalgonda',
-                story: 'I thought I’d lose my kids forever. He Team’s legal support in Telugu helped me secure joint custody.',
+                story: '<span style="color: #D4A017">He Team</span>’s legal support in Telugu helped me secure joint custody.',
               },
             ].map((testimonial) => (
               <Grid item xs={12} sm={6} md={4} key={testimonial.name}>
@@ -152,9 +152,11 @@ function Home() {
                     <Typography variant="h6" sx={{ color: 'secondary.main', mb: 2 }}>
                       {testimonial.name}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      "{testimonial.story}"
-                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: 'text.secondary' }}
+                      dangerouslySetInnerHTML={{ __html: testimonial.story }}
+                    />
                   </CardContent>
                 </Card>
               </Grid>
@@ -165,10 +167,10 @@ function Home() {
         {/* Final CTA */}
         <Box sx={{ textAlign: 'center', py: 6, bgcolor: 'secondary.main', borderRadius: 2, color: 'background.default' }}>
           <Typography variant="h4" sx={{ mb: 3 }}>
-            Are You Facing a Challenge? Let He Team Stand by You.
+            Are You Facing a Challenge? Let <span sx={{ color: 'accent.main' }}>He Team</span> Stand by You.
           </Typography>
           <Typography variant="body1" sx={{ maxWidth: 600, mx: 'auto', mb: 4 }}>
-            No matter where you are in India or what you're going through, He Team offers free case registration and confidential support. Take the first step toward justice today.
+            No matter where you are in India or what you're going through, <span sx={{ color: 'accent.main' }}>He Team</span> offers free case registration and confidential support. Take the first step toward justice today.
           </Typography>
           <Button
             variant="contained"

@@ -63,7 +63,7 @@ function Counseling() {
           to="/register"
           sx={{ bgcolor: 'accent.main', color: 'text.primary', px: 4 }}
         >
-          Connect with Us Today
+          Connect with <span sx={{ color: 'accent.main' }}>He Team</span> Today
         </Button>
       </Box>
     </Container>

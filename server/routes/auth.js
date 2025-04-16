@@ -1,5 +1,5 @@
 const express = require('express');
-const nodemailer = require('nodemailer'); // Added Nodemailer
+const nodemailer = require('nodemailer');
 const User = require('../models/User');
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
       service: 'Gmail',
       auth: {
         user: 'zvertex.247@gmail.com',
-        pass: process.env.EMAIL_PASSWORD // Store in .env
+        pass: process.env.EMAIL_PASSWORD
       }
     });
 

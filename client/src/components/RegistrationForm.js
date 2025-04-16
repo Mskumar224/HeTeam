@@ -25,7 +25,11 @@ function RegistrationForm() {
       setFormData({ name: '', email: '', caseType: '', location: '', language: '', description: '' });
     } catch (error) {
       console.error('Registration error:', error.response || error);
-      alert(error.response?.data?.message || 'Registration failed. Please try again later.');
+      const errorMessage = error.response?.data?.message || 
+        error.message === 'Network Error' ? 
+        'Unable to connect to the server. Please check your internet or try again later.' : 
+        `Registration failed: ${error.response?.status || 'Unknown error'}. Please try again later.`;
+      alert(errorMessage);
     }
   };
 
@@ -65,7 +69,7 @@ function RegistrationForm() {
           Share Your Struggle
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
-          Facing a legal or personal challenge? Register your case for free, and let He Team connect you with advocates across India who understand your needs.
+          Facing a legal or personal challenge? Register your case for free, and let <span sx={{ color: 'accent.main' }}>He Team</span> connect you with advocates across India who understand your needs.
         </Typography>
       </Box>
       <Box sx={{ maxWidth: 700, mx: 'auto', bgcolor: 'background.paper', p: 4, borderRadius: 2, boxShadow: 3 }}>
