@@ -21,11 +21,11 @@ function RegistrationForm() {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, formData);
-      alert(response.data.message || 'Registration successful! Our team will connect you with an advocate soon.');
+      alert(response.data.message);
       setFormData({ name: '', email: '', caseType: '', location: '', language: '', description: '' });
     } catch (error) {
       console.error('Registration error:', error.response || error);
-      alert('Registration failed. Please try again later.');
+      alert(error.response?.data?.message || 'Registration failed. Please try again later.');
     }
   };
 

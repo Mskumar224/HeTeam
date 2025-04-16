@@ -1,41 +1,35 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authRoutes = require('./routes/auth');
-const caseRoutes = require('./routes/cases');
-const advocateRoutes = require('./routes/advocates');
 require('dotenv').config();
+
+const authRoutes = require('./routes/auth');
+const advocateRoutes = require('./routes/advocates');
 
 const app = express();
 
-// Middleware
+// CORS configuration
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://he-team.netlify.app'],
+  origin: ['https://heteam.org', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
+  credentials: true
 }));
+
+// Middleware
 app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/cases', caseRoutes);
 app.use('/api/advocates', advocateRoutes);
 
-// Root endpoint for testing
-app.get('/', (req, res) => {
-  res.json({ message: 'He Team Backend API is running' });
-});
-
-// Connect to MongoDB with error handling
-mongoose
-  .connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 5000,
-  })
-  .then(() => console.log('MongoDB connected successfully'))
-  .catch((err) => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
-  });
+// MongoDB connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // Start server
 const PORT = process.env.PORT || 5000;

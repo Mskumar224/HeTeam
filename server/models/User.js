@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
   caseType: { type: String, required: true },
   location: { type: String, required: true },
   language: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
+  description: { type: String },
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('User', userSchema);

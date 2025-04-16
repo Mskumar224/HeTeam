@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import ArrowBack from '@mui/icons-material/ArrowBack'; // Explicit import
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
 function BackButton() {
@@ -8,18 +8,9 @@ function BackButton() {
 
   return (
     <Button
-      variant="outlined"
-      startIcon={<ArrowBack />}
+      startIcon={<ArrowBackIcon />}
       onClick={() => navigate(-1)}
-      sx={{
-        mb: 2,
-        color: 'secondary.main',
-        borderColor: 'secondary.main',
-        '&:hover': {
-          bgcolor: 'secondary.main',
-          color: 'background.default',
-        },
-      }}
+      sx={{ mb: 2, color: 'primary.main' }}
     >
       Back
     </Button>

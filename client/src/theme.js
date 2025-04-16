@@ -12,7 +12,7 @@ const theme = createTheme({
       main: '#D4A017', // Muted Gold
     },
     teal: {
-      main: '#4DB6AC', // Soft Teal (new for counseling button)
+      main: '#4DB6AC', // Soft Teal
     },
     background: {
       default: '#F8F9FA', // Off-White

@@ -1,31 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography, Container, TextField, MenuItem, Grid, Card, CardContent, Button } from '@mui/material';
+import React, { useState } from 'react'; // Removed unused useEffect
+import { Box, Typography, TextField, Button, Container, Grid, Card, CardContent, MenuItem } from '@mui/material';
 import axios from 'axios';
 import BackButton from './BackButton';
 
 function AdvocateFinder() {
-  const [filters, setFilters] = useState({
+  const [formData, setFormData] = useState({
     location: '',
     caseType: '',
     language: '',
   });
   const [advocates, setAdvocates] = useState([]);
-
-  useEffect(() => {
-    fetchAdvocates();
-  }, [filters]);
-
-  const fetchAdvocates = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/advocates`, { params: filters });
-      setAdvocates(response.data);
-    } catch (error) {
-      console.error('Error fetching advocates:', error);
-    }
-  };
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/advocates`, {
+        params: formData
+      });
+      setAdvocates(response.data);
+      setError('');
+    } catch (error) {
+      console.error('Error fetching advocates:', error);
+      setError(error.response?.data?.message || 'Unable to fetch advocates. Please try again.');
+      setAdvocates([]);
+    }
   };
 
   const locations = [
@@ -40,116 +43,135 @@ function AdvocateFinder() {
     'Lucknow - Allahabad High Court',
     'Patna - Patna High Court',
     'Nalgonda - Nalgonda District Court',
-    'Other',
+    'Guwahati - Gauhati High Court',
+    'Kochi - Kerala High Court',
+    'Other'
+  ];
+
+  const caseTypes = [
+    'False Dowry Allegations',
+    'Divorce',
+    'Alimony Disputes',
+    'Child Custody',
+    'Property Disputes',
+    'Workplace Harassment',
+    'Domestic Violence Defense',
+    'Paternity Disputes',
+    'Inheritance Issues',
+    'Criminal Defense (Men-Specific)',
+    'Other'
   ];
 
   const languages = [
     'Hindi', 'English', 'Tamil', 'Telugu', 'Bengali', 'Marathi',
-    'Gujarati', 'Kannada', 'Malayalam', 'Punjabi', 'Odia', 'Assamese', 'Other',
-  ];
-
-  const caseTypes = [
-    'Divorce', 'Domestic Violence Defense', 'Alimony Disputes', 'Child Custody',
-    'Property Disputes', 'False Dowry Cases', 'Workplace Harassment',
-    'Paternity Disputes', 'Inheritance Issues', 'Criminal Defense (Men-Specific)', 'Other',
+    'Gujarati', 'Kannada', 'Malayalam', 'Punjabi', 'Odia', 'Assamese', 'Other'
   ];
 
   return (
     <Container sx={{ py: 6 }}>
       <BackButton />
-      <Box sx={{ textAlign: 'center', mb: 6 }}>
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
         <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 600 }}>
-          Find Your Advocate
+          Find an Advocate
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
-          Connect with experienced advocates across India who specialize in your case type, speak your language, and practice in your location.
+          Connect with trusted advocates across India who understand your needs.
         </Typography>
       </Box>
-      <Box sx={{ mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              select
-              label="Location"
-              name="location"
-              value={filters.location}
-              onChange={handleChange}
-              variant="outlined"
-            >
-              <MenuItem value="">All Locations</MenuItem>
-              {locations.map((loc) => (
-                <MenuItem key={loc} value={loc}>{loc}</MenuItem>
-              ))}
-            </TextField>
+      <Box sx={{ maxWidth: 700, mx: 'auto', bgcolor: 'background.paper', p: 4, borderRadius: 2, boxShadow: 3, mb: 4 }}>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                fullWidth
+                select
+                label="Location"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                variant="outlined"
+              >
+                {locations.map((loc) => (
+                  <MenuItem key={loc} value={loc}>{loc}</MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                fullWidth
+                select
+                label="Case Type"
+                name="caseType"
+                value={formData.caseType}
+                onChange={handleChange}
+                variant="outlined"
+              >
+                {caseTypes.map((type) => (
+                  <MenuItem key={type} value={type}>{type}</MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                fullWidth
+                select
+                label="Language"
+                name="language"
+                value={formData.language}
+                onChange={handleChange}
+                variant="outlined"
+              >
+                {languages.map((lang) => (
+                  <MenuItem key={lang} value={lang}>{lang}</MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                sx={{ bgcolor: 'accent.main', color: 'text.primary', py: 1.5 }}
+              >
+                Find Advocates
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              select
-              label="Case Type"
-              name="caseType"
-              value={filters.caseType}
-              onChange={handleChange}
-              variant="outlined"
-            >
-              <MenuItem value="">All Case Types</MenuItem>
-              {caseTypes.map((type) => (
-                <MenuItem key={type} value={type}>{type}</MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              select
-              label="Language"
-              name="language"
-              value={filters.language}
-              onChange={handleChange}
-              variant="outlined"
-            >
-              <MenuItem value="">All Languages</MenuItem>
-              {languages.map((lang) => (
-                <MenuItem key={lang} value={lang}>{lang}</MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-        </Grid>
+        </form>
       </Box>
+      {error && (
+        <Typography color="error" sx={{ textAlign: 'center', mb: 4 }}>
+          {error}
+        </Typography>
+      )}
       <Grid container spacing={3}>
         {advocates.length > 0 ? (
           advocates.map((advocate) => (
             <Grid item xs={12} sm={6} md={4} key={advocate._id}>
-              <Card sx={{ boxShadow: 3, '&:hover': { transform: 'translateY(-4px)', transition: '0.3s' } }}>
+              <Card sx={{ bgcolor: 'background.paper', height: '100%' }}>
                 <CardContent>
-                  <Typography variant="h6" sx={{ color: 'secondary.main' }}>
+                  <Typography variant="h6" sx={{ color: 'primary.main' }}>
                     {advocate.name}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    Location: {advocate.location}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     Specialization: {advocate.specialization}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    Location: {advocate.location}
+                    Languages: {advocate.languages}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-                    Language: {advocate.language}
+                  <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+                    Contact: {advocate.contact}
                   </Typography>
-                  <Button
-                    variant="contained"
-                    component={Link}
-                    to="/register"
-                    sx={{ bgcolor: 'accent.main', color: 'text.primary' }}
-                  >
-                    Contact Advocate
-                  </Button>
                 </CardContent>
               </Card>
             </Grid>
           ))
         ) : (
-          <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'center', width: '100%' }}>
-            No advocates found. Try adjusting your filters.
+          <Typography sx={{ textAlign: 'center', width: '100%', color: 'text.secondary' }}>
+            No advocates found. Try adjusting your search.
           </Typography>
         )}
       </Grid>
